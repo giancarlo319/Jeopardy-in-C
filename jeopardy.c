@@ -35,6 +35,11 @@ int main(int argc, char *argv[])
 
     // Display the game introduction and prompt for players names
     // initialize each of the players in the array
+    printf("Welcome to Jeopardy! Please Enter your Names:\n");
+    for(int i=0; i<=4; i++){
+        scanf("%s",&players[i].name);
+    }
+    printf("Thank you.\n");
 
     // Perform an infinite loop getting command input from users until game ends
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
@@ -45,6 +50,19 @@ int main(int argc, char *argv[])
         // Execute the game until all questions are answered
        
         // Display the final results and exit
+        show_results(players);
+
+        return EXIT_SUCCESS;
     }
-    return EXIT_SUCCESS;
+
+    
+}
+void show_results(player *players){
+    for(int i = 0; i <= 4; i++){
+        printf("Name: %s\tScore:%d\n", player[i].name, player[i].score);
+    }
+}
+
+void tokenize(char *input, char **tokens){
+    
 }
