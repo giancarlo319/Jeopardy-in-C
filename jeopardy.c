@@ -48,6 +48,24 @@ int main(int argc, char *argv[])
         initialize_game();
 
         // Execute the game until all questions are answered
+        char **token;
+        char *response;
+        *token[0] = "Who is";
+        *token[1] = "What is";
+		
+		for (int i = )
+		while (!already_answered(category, value)){
+			printf("Ready for answer: ");
+			scanf("%s", &response);
+			tokenize(response, tokens);
+
+			if (valid_answer){
+
+			}
+		}
+
+
+       
        
         // Display the final results and exit
         show_results(players);
@@ -64,5 +82,25 @@ void show_results(player *players){
 }
 
 void tokenize(char *input, char **tokens){
-    
+
+    const char *s1 = *tokens[0];
+    const char *s2 = *tokens[1];
+
+    const char token1* = strtok(input, *tokens[0]);
+    const char token2* = strtok(input, *tokens[1]);
+
+    if(token1 != ''){
+        input = token1;
+    }
+    else if(token2 != ''){
+        input = token2;
+    }
+    else{
+        printf("ERROR. NO INPUT DETECTED\n");
+    }
+
+
+
 }
+
+//Alex Trebek

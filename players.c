@@ -34,9 +34,9 @@ void update_score(player *players, int num_players, char *name, int score)
     
     for(int i = 1; int <= num_players; i++)
     {
-        if (*players[i].name == *name)
+        if (players[i].name == *name)
         {
-            *players[i].score = score; 
+            players[i].score = score; 
         }       
     }
 }
