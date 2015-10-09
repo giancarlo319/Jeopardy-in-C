@@ -45,32 +45,16 @@ int main(int argc, char *argv[])
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         // Call functions from the questions and players source files
-        initialize_game();
-
-        // Execute the game until all questions are answered
         char **token;
-        char *response;
         *token[0] = "Who is";
         *token[1] = "What is";
-		
-		for (int i = )
-		while (!already_answered(category, value)){
-			printf("Ready for answer: ");
-			scanf("%s", &response);
-			tokenize(response, tokens);
+        
+        int game_return;
+        
+        initialize_game();
+        game_return = run_game(token);
+        return 0;
 
-			if (valid_answer){
-
-			}
-		}
-
-
-       
-       
-        // Display the final results and exit
-        show_results(players);
-
-        return EXIT_SUCCESS;
     }
 
     
@@ -98,9 +82,63 @@ void tokenize(char *input, char **tokens){
     else{
         printf("ERROR. NO INPUT DETECTED\n");
     }
+}
+
+int run_game(char **token){
+
+    // Execute the game until all questions are answered
+    int questions_remaining = sizeof(questions);
+    bool correct;
+    char *category;
+    int value;
+    char *response;
 
 
+    while(questions remaining > 0){
+        for(int i =0; i < sizeof(players); i++){
+            printf("'%s's Turn\n Please choose from the following questions\n
+                (hint: first enter category and hit enter, then enter the dollar 
+                    amount and hit enter):\n\n", player[i].name);
+            
+            display_categories();
+            
+            printf("\n\n");
+            scanf("%s", &category);
+            scanf("%d", value);
+            printf("\n");
+            
+            if(already_answered){
+                printf("Question has already been answered. Please choose another");
+                i--;
+            }
+            else{
+                display_question(category, value);
+                scanf("%s", response);                                  //Takes response
+                
+                tokenize(response,token);                               //extracts answer from response
+                correct = valid_answer(category,value,response);
+                if(correct){
+                    printf("Correct! You may now choose another question.\n\n");
+                    player[i].score += value;
+                    i--;
+                }
+                else{
+                    prinf("Unfortunately, that is incorrect, or you forgot to say \"What is/Who is\".\n\n");
+                }
+                question_answered(category, value);
+                questions_remaining--;
+                if(questions_remaining<=0){
+                    break;
+                }
+            }                
+        }
+    }
+    
+    // Display the final results and exit
+    show_results(players);
+
+    return EXIT_SUCCESS;
 
 }
 
-//Alex Trebek
+//Alex Trebek <> Kebert Xela
