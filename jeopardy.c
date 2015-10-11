@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     // initialize each of the players in the array
     printf("Welcome to Jeopardy! Please Enter your Names:\n");
     for(int i=0; i<=4; i++){
-        scanf("%s",&players[i].name);
+        scanf("%s", &players[i].name);
     }
     printf("Thank you.\n");
 
@@ -46,13 +46,15 @@ int main(int argc, char *argv[])
     {
         // Call functions from the questions and players source files
         char **token;
-        *token[0] = "Who is";
-        *token[1] = "What is";
+        token = (char *) calloc(256, sizeof(char));
+        
+        token[0] = "Who is";
+        token[1] = "What is";
         
         int game_return;
         
         initialize_game();
-        game_return = run_game(token);
+        run_game(token, players);
         return 0;
 
     }
@@ -61,7 +63,7 @@ int main(int argc, char *argv[])
 }
 void show_results(player *players){
     for(int i = 0; i <= 4; i++){
-        printf("Name: %s\tScore:%d\n", player[i].name, player[i].score);
+        printf("Name: %s\tScore:%d\n", players[i].name, players[i].score);
     }
 }
 
@@ -70,13 +72,13 @@ void tokenize(char *input, char **tokens){
     const char *s1 = *tokens[0];
     const char *s2 = *tokens[1];
 
-    const char token1* = strtok(input, *tokens[0]);
-    const char token2* = strtok(input, *tokens[1]);
+    const char *token1 = strtok(input, tokens[0]);
+    const char *token2 = strtok(input, tokens[1]);
 
-    if(token1 != ''){
+    if(token1 != NULL){
         input = token1;
     }
-    else if(token2 != ''){
+    else if(token2 != NULL){
         input = token2;
     }
     else{
@@ -84,7 +86,7 @@ void tokenize(char *input, char **tokens){
     }
 }
 
-int run_game(char **token){
+void run_game(char **token, player *players){
 
     // Execute the game until all questions are answered
     int questions_remaining = sizeof(questions);
@@ -92,13 +94,13 @@ int run_game(char **token){
     char *category;
     int value;
     char *response;
+    
+    token = (char *) calloc(256, sizeof(char));
 
 
-    while(questions remaining > 0){
+    while(questions_remaining > 0){
         for(int i =0; i < sizeof(players); i++){
-            printf("'%s's Turn\n Please choose from the following questions\n
-                (hint: first enter category and hit enter, then enter the dollar 
-                    amount and hit enter):\n\n", player[i].name);
+            printf("'%s's Turn\n Please choose from the following questions\nhint: first enter category and hit enter, then enter the dollar amount and hit enter):\n\n", players[i].name);
             
             display_categories();
             
@@ -119,11 +121,11 @@ int run_game(char **token){
                 correct = valid_answer(category,value,response);
                 if(correct){
                     printf("Correct! You may now choose another question.\n\n");
-                    player[i].score += value;
+                    players[i].score += value;
                     i--;
                 }
                 else{
-                    prinf("Unfortunately, that is incorrect, or you forgot to say \"What is/Who is\".\n\n");
+                    printf("Unfortunately, that is incorrect, or you forgot to say \"What is/Who is\".\n\n");
                 }
                 question_answered(category, value);
                 questions_remaining--;
@@ -136,8 +138,6 @@ int run_game(char **token){
     
     // Display the final results and exit
     show_results(players);
-
-    return EXIT_SUCCESS;
 
 }
 

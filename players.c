@@ -10,31 +10,37 @@
 #include <string.h>
 #include "players.h"
 
-/*
+
     // Player struct for each player
-    typedef struct {
-    char name[MAX_LEN];
-    int score;
-} player;   
- */
+
 
 // Returns true if the player name matches one of the existing players
 bool player_exists(player *players, char *name)
 {
-    if (*players.name == *name)
-    {
-        return true;
+    bool exists;
+    
+    for(int i = 0; i<= sizeof(players); i++){
+        if (players[i].name == name)
+        {
+            exists = true;
+            break;
+        }
+        else{
+            exists = false;
+        }
+        
     }
-    return false;
+    return exists;
+    
 }
 
 // Updates the score for that player given their name
 void update_score(player *players, int num_players, char *name, int score)
 {
     
-    for(int i = 1; int <= num_players; i++)
+    for(int i = 1; i <= num_players; i++)
     {
-        if (players[i].name == *name)
+        if (players[i].name == name)
         {
             players[i].score = score; 
         }       
