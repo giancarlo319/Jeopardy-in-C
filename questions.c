@@ -41,3 +41,8 @@ bool already_answered(char *category, int value)
     // lookup the question and see if it's already been marked as answered
     return false;
 }
+
+void question_answered(char *category, int value)
+{
+    //Flags a question as answered
+}

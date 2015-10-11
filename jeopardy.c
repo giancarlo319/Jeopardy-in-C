@@ -19,13 +19,13 @@
 // Put global environment variables here
 
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
-void tokenize(char *input, char **tokens);
+void tokenize(char *input/*, char **tokens*/);
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
 void show_results(player *players);
 
 
-int main(int argc, char *argv[])
+int main(void)
 {
     // An array of 4 players, may need to be a pointer if you want it set dynamically
     player players[4];
@@ -45,16 +45,17 @@ int main(int argc, char *argv[])
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         // Call functions from the questions and players source files
+/*
         char **token;
-        token = (char *) calloc(256, sizeof(char));
+        token = (char **) calloc(256, sizeof(char));
         
         token[0] = "Who is";
         token[1] = "What is";
-        
-        int game_return;
+*/
         
         initialize_game();
-        run_game(token, players);
+        run_game(/*token,*/ players);
+        //free(token);
         return 0;
 
     }
@@ -67,26 +68,26 @@ void show_results(player *players){
     }
 }
 
-void tokenize(char *input, char **tokens){
+void tokenize(char *input/*, char **tokens*/){
 
-    const char *s1 = *tokens[0];
-    const char *s2 = *tokens[1];
+    char *token1 = strtok(input, " ");
+    char *token2 = strtok(NULL, " ");
+    char *answer = strtok(NULL, " ");
 
-    const char *token1 = strtok(input, tokens[0]);
-    const char *token2 = strtok(input, tokens[1]);
-
-    if(token1 != NULL){
-        input = token1;
-    }
-    else if(token2 != NULL){
-        input = token2;
+    if(token1 != "Who" || token1 != "What"){
+        printf("Improperly prefaced question.\n");
+        input = "ERR";
     }
     else{
-        printf("ERROR. NO INPUT DETECTED\n");
+        if(token2 != "is"){
+            printf("Improperly prefaced question.\n");
+            input = "ERR";
+        }
+        input = answer;        
     }
 }
 
-void run_game(char **token, player *players){
+void run_game(/*char **token,*/ player *players){
 
     // Execute the game until all questions are answered
     int questions_remaining = sizeof(questions);
@@ -95,7 +96,7 @@ void run_game(char **token, player *players){
     int value;
     char *response;
     
-    token = (char *) calloc(256, sizeof(char));
+    //token = (char *) calloc(256, sizeof(char));
 
 
     while(questions_remaining > 0){
@@ -109,7 +110,7 @@ void run_game(char **token, player *players){
             scanf("%d", value);
             printf("\n");
             
-            if(already_answered){
+            if(already_answered(category, value)){
                 printf("Question has already been answered. Please choose another");
                 i--;
             }
@@ -117,7 +118,7 @@ void run_game(char **token, player *players){
                 display_question(category, value);
                 scanf("%s", response);                                  //Takes response
                 
-                tokenize(response,token);                               //extracts answer from response
+                tokenize(response/*token*/);                               //extracts answer from response
                 correct = valid_answer(category,value,response);
                 if(correct){
                     printf("Correct! You may now choose another question.\n\n");
