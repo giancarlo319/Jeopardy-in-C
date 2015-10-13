@@ -36,7 +36,7 @@ int main(void)
     // Display the game introduction and prompt for players names
     // initialize each of the players in the array
     printf("Welcome to Jeopardy! Please Enter your Names:\n");
-    for(int i=0; i<=4; i++){
+    for(int i=0; i<4; i++){
         scanf("%s", players[i].name);
     }
     printf("Thank you.\n");
@@ -79,16 +79,18 @@ void run_game(char **token, player *players){
     // Execute the game until all questions are answered
     int questions_remaining = sizeof(questions);
     bool correct;
-    char *category;
+    char *category;  
     int value;
     char response[BUFFER_LEN] = {0};
+    
+    category = (char *) calloc(BUFFER_LEN, sizeof(char));
     
     //token = (char *) calloc(256, sizeof(char));
 
 
     while(questions_remaining > 0){
         for(int i =0; i < sizeof(players); i++){
-            printf("'%s's Turn\n Please choose from the following questions\nhint: first enter category and hit enter, then enter the dollar amount and hit enter):\n\n", players[i].name);
+            printf("%s's Turn\nPlease choose from the following questions\n(hint: first enter category and hit enter, then enter the dollar amount and hit enter):\n\n", players[i].name);
             
             display_categories();
             
@@ -122,6 +124,7 @@ void run_game(char **token, player *players){
                 }
             }                
         }
+        free(category);
     }
     
     // Display the final results and exit
