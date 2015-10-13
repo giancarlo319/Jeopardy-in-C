@@ -4,7 +4,7 @@
  * Copyright (C) 2015, <GROUP MEMBERS>
  * All rights reserved.
  *
- */
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,7 +37,7 @@ int main(void)
     // initialize each of the players in the array
     printf("Welcome to Jeopardy! Please Enter your Names:\n");
     for(int i=0; i<=4; i++){
-        scanf("%s", &players[i].name);
+        scanf("%s", players[i].name);
     }
     printf("Thank you.\n");
 
@@ -69,20 +69,19 @@ void tokenize(char *input, char **tokens){
     char *token1 = strtok(input, " ");
     token1 = strtok(input, " ");
 
-    for(int i = 0; token != NULL; i++){
+    for(int i = 0; token1 != NULL; i++){
         strcpy(tokens[i], token1);
         token1 = strtok(NULL, " ");
     }       
 }
 
 void run_game(char **token, player *players){
-
     // Execute the game until all questions are answered
     int questions_remaining = sizeof(questions);
     bool correct;
     char *category;
     int value;
-    char response[BUFFER_LEN] = {0);
+    char response[BUFFER_LEN] = {0};
     
     //token = (char *) calloc(256, sizeof(char));
 
