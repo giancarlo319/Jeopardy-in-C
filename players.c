@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "players.h"
+#include "jeopardy.h"
 
 
     // Player struct for each player

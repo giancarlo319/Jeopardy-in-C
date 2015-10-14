@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "questions.h"
+#include "jeopardy.h"
 
 // Initializes the array of questions for the game
 void initialize_game(void)
@@ -68,25 +69,25 @@ void initialize_game(void)
 
 
 
-	strcpy(questions[8].category, "computer networks");
+	strcpy(questions[8].category, "networks");
 	strcpy(questions[8].question, "The Open System Interconnection model has this many layers");
 	strcpy(questions[8].answer, "7");
 	questions[8].value = 200;
 	questions[8].answered = false;
 
-	strcpy(questions[9].category, "computer networks");
+	strcpy(questions[9].category, "networks");
 	strcpy(questions[9].question, "This device forwards data packets between computer networks");
 	strcpy(questions[9].answer, "Router");
 	questions[9].value = 400;
 	questions[9].answered = false;
 
-	strcpy(questions[10].category, "computer networks");
+	strcpy(questions[10].category, "networks");
 	strcpy(questions[10].question, "Frames from one LAN can be transmitted to another LAN via this device");
 	strcpy(questions[10].answer, "Bridge");
 	questions[10].value = 600;
 	questions[10].answered = false;
 
-	strcpy(questions[11].category, "computer networks");
+	strcpy(questions[11].category, "networks");
 	strcpy(questions[11].question, "Number of hosts attached to each of the local area networks at your site");
 	strcpy(questions[11].answer, "254");
 	questions[11].value = 800;
@@ -134,11 +135,14 @@ void display_categories(void)
 }
 
 // Displays the question for the category and dollar value
-void display_question(char *category, int value)
+void display_question(char category[BUFFER_LEN], int value)
 {
-	for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+	for (int i = 0; i < NUM_QUESTIONS; i++)
+	{
+		if (strcmp(questions[i].category, category) == 0 && (questions[i].value == value))
+		{
 			printf("Question: %s (%d)\n", questions[i].question, questions[i].value);
+			break;
 		}
 	}
 }
@@ -150,7 +154,7 @@ bool valid_answer(char *category, int value, char *answer)
 	bool is_valid;
 
 	for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+		if ((questions[i].category, category) == 0 && (questions[i].value == value)) {
 			if (strcmp(questions[i].answer, answer) == 0) {
 
 				is_valid = true;
@@ -166,15 +170,16 @@ bool valid_answer(char *category, int value, char *answer)
 }
 
 // Returns true if the question has already been answered
-bool already_answered(char *category, int value)
+bool already_answered(char category[BUFFER_LEN], int value)
 {
-	bool answered;
+	bool answered = false;
 
-	for (int i = 0; i < 12; i++) {
-		
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+	for (int i = 0; i < NUM_QUESTIONS; i++)
+	{	
+		if (strcmp(questions[i].category, category) == 0 && (questions[i].value == value))
+		{
 			
-			if (questions[i].answered == true) {
+			if (questions[i].answered) {
 				
 				answered = true;
 
@@ -189,13 +194,14 @@ bool already_answered(char *category, int value)
 	return answered;
 }
 
-void question_answered(char *category, int value)
+void question_answered(char category[BUFFER_LEN], int value)
 {
 	for (int i = 0; i < 12; i++) {
-		
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+            		
+		if (strcmp(questions[i].category, category) == 0 && (questions[i].value == value)) {
 			
 			questions[i].answered = true;
+                        break;
 
 		}
 	}
