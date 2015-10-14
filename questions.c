@@ -168,22 +168,25 @@ bool valid_answer(char *category, int value, char *answer)
 // Returns true if the question has already been answered
 bool already_answered(char *category, int value)
 {
+	bool answered;
+
 	for (int i = 0; i < 12; i++) {
 		
 		if ((questions[i].category == category) && (questions[i].value == value)) {
 			
 			if (questions[i].answered == true) {
 				
-				return true;
+				answered = true;
 
 			} else {
 
-				return false;
+				answered = false;
 
 			}
 		}
 	}
 
+	return answered;
 }
 
 void question_answered(char *category, int value)
