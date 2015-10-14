@@ -106,47 +106,33 @@ void display_categories(void)
 			
 			snprintf(v[i], 20, "%d", questions[i].value);
 			
+		} else {
+
+			strcpy(v[i], "   ");
+
 		}
-		
-		
+			
 	}
 
 
 	char c1[] = categories[0];
 	char c2[] = categories[1];
 	char c3[] = categories[2];
-	
-	char c1q1[] = "200";
-	char c2q1[] = "200";
-	char c3q1[] = "200";
-	
-	char c1q2[] = "400";
-	char c2q2[] = "400";
-	char c3q2[] = "400";
-
-	char c1q3[] = "600";
-	char c2q3[] = "600";
-	char c3q3[] = "600";
-	
-	char c1q4[] = "800";
-	char c2q4[] = "800";
-	char c3q4[] = "800";
-
 
 	
 	printf("   %s   |   %s   |   %s   \n", c1, c2, c3);
 	printf("  -------------------------------------------------\n");
 
-	printf("      %s      |     %s     |         %s   \n", c1q1, c2q1, c3q1);
+	printf("      %s      |     %s     |         %s   \n", v[0], v[1], v[2]);
 	printf("  -------------------------------------------------\n");
 	
-	printf("      %s      |     %s     |         %s   \n", c1q2, c2q2, c3q2);
+	printf("      %s      |     %s     |         %s   \n", v[3], v[4], v[5]);
 	printf("  -------------------------------------------------\n");
 	
-	printf("      %s      |     %s     |         %s   \n", c1q3, c2q3, c3q3);
+	printf("      %s      |     %s     |         %s   \n", v[6], v[7], v[8]);
 	printf("  -------------------------------------------------\n");
 
-	printf("      %s      |     %s     |         %s   \n", c1q4, c2q4, c3q4);
+	printf("      %s      |     %s     |         %s   \n", v[9], v[10], v[11]);
 	printf("  -------------------------------------------------\n");
 
 
@@ -184,11 +170,32 @@ bool valid_answer(char *category, int value, char *answer)
 // Returns true if the question has already been answered
 bool already_answered(char *category, int value)
 {
-    // lookup the question and see if it's already been marked as answered
-    return false;
+	for (int i = 0; i < 12; i++) {
+		
+		if ((questions[i].category == category) && (questions[i].value == value)) {
+			
+			if (questions[i].answered == true) {
+				
+				return true;
+
+			} else {
+
+				return false;
+
+			}
+		}
+	}
+
 }
 
 void question_answered(char *category, int value)
 {
-    //Flags a question as answered
+	for (int i = 0; i < 12; i++) {
+		
+		if ((questions[i].category == category) && (questions[i].value == value)) {
+			
+			questions[i].answered = true;
+			
+		}
+	}
 }
