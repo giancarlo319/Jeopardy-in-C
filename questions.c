@@ -114,13 +114,8 @@ void display_categories(void)
 			
 	}
 
-
-	char c1[] = categories[0];
-	char c2[] = categories[1];
-	char c3[] = categories[2];
-
 	
-	printf("   %s   |   %s   |   %s   \n", c1, c2, c3);
+	printf("   %s   |   %s   |   %s   \n", categories[0], categories[1], categories[2]);
 	printf("  -------------------------------------------------\n");
 
 	printf("      %s      |     %s     |         %s   \n", v[0], v[1], v[2]);
@@ -141,7 +136,7 @@ void display_categories(void)
 // Displays the question for the category and dollar value
 void display_question(char *category, int value)
 {
-	for (int i = 0; i < sizeof(questions[12]); i++) {
+	for (int i = 0; i < 12; i++) {
 		if ((questions[i].category == category) && (questions[i].value == value)) {
 			printf("Question: %s (%d)\n", questions[i].question, questions[i].value);
 		}
@@ -195,7 +190,7 @@ void question_answered(char *category, int value)
 		if ((questions[i].category == category) && (questions[i].value == value)) {
 			
 			questions[i].answered = true;
-			
+
 		}
 	}
 }
