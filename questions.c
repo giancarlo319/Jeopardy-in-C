@@ -157,8 +157,11 @@ bool valid_answer(char *category, int value, char *answer)
 	for (int i = 0; i < 12; i++) {
 		if ((questions[i].category == category) && (questions[i].value == value)) {
 			if (strcmp(questions[i].answer, answer) == 0) {
+
 				is_valid = true;
+			
 			} else {
+				
 				is_valid = false;
 			}
 		}
